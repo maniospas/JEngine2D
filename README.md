@@ -64,6 +64,19 @@ public class MyState extends State {
 		super.process(dt, inputs);
 		// process any game animation here
 	}
+	
+	@Override
+	public void drawFront(Graphics g) {
+		super.drawFront(g);
+		// draw things in front of the UI here
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		// draw things behind the UI here
+		// coordinates are always in the range [0,getWidth()] and [0,getHeight()]
+		// use the drawable.draw(Graphics g, int posX, int posY, int width, int height, int direction); to draw a texture on the Graphics (where direction is either 1 or -1) where drawable refers to either a Texture or an Animation
+	}
 }
 ``` 
 
