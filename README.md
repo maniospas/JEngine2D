@@ -5,6 +5,8 @@ It is a bit slow but really easy to get into for simple games.
 **Creator:** Emmanouil (Manios) Krasanakis<br>
 **Contact:** maniospas@hotmail.com
 
+[![](https://jitpack.io/v/maniospas/JEngine2D.svg)](https://jitpack.io/#maniospas/JEngine2D)
+
 ## :zap: Quickstart
 
 Your main class should override the *Game* class, instantiate and run its instance.
