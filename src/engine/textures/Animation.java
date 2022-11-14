@@ -57,6 +57,14 @@ public class Animation {
 					width*currentGridX/gridWidth, height*currentGridY/gridHeight, 
 					width*(currentGridX+1)/gridWidth, height*(currentGridY+1)/gridHeight, null);
 	}
+
+	public final void draw(Graphics g, double x, double y, double dx, double dy) {
+		draw(g, (int)Math.round(x), (int)Math.round(y), (int)Math.round(dx), (int)Math.round(dy), 1);
+	}
+
+	public final void draw(Graphics g, double x, double y, double dx, double dy, int direction) {
+		draw(g, (int)Math.round(x), (int)Math.round(y), (int)Math.round(dx), (int)Math.round(dy), direction);
+	}
 	
 	public boolean isFinished() {
 		return finished;

@@ -48,6 +48,14 @@ public class Texture {
 		return image;
 	}
 	
+	public final void draw(Graphics g, double x, double y, double dx, double dy) {
+		draw(g, (int)Math.round(x), (int)Math.round(y), (int)Math.round(dx), (int)Math.round(dy), 1);
+	}
+
+	public final void draw(Graphics g, double x, double y, double dx, double dy, int direction) {
+		draw(g, (int)Math.round(x), (int)Math.round(y), (int)Math.round(dx), (int)Math.round(dy), direction);
+	}
+	
 	public final void draw(Graphics g, int x, int y, int dx, int dy) {
 		draw(g, x, y, dx, dy, 1);
 	}
@@ -57,5 +65,9 @@ public class Texture {
 			g.drawImage(image, x, y, x+dx, y+dy, 0, 0, image.getWidth(null), image.getHeight(null), null);
 		else
 			g.drawImage(image, x+dx, y, x, y+dy, 0, 0, image.getWidth(null), image.getHeight(null), null);
+	}
+	
+	public Animation asAnimation() {
+		return new Animation(this, 1, 1, 0.0);
 	}
 }
