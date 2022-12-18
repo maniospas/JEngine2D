@@ -23,19 +23,6 @@ public class Pixelation {
 	}
 	
 	public Pixelation() {
-		/*int[] levels = {64, 128, 255};
-		for(int level: levels) {
-			palette.add(new Color(level, level, level));
-			palette.add(new Color(level, 0, 0));
-			palette.add(new Color(0, level, 0));
-			palette.add(new Color(0, 0, level));
-			for(int level2: levels) {
-				palette.add(new Color(level, level2, 0));
-				palette.add(new Color(level, level2, 0));
-				palette.add(new Color(0, level, level2));
-				palette.add(new Color(level, 0, level2));
-			}
-		}*/
 		palette.add(Color.decode("#540e46"));
 		palette.add(Color.decode("#821653"));
 		palette.add(Color.decode("#a1234d"));
@@ -90,6 +77,56 @@ public class Pixelation {
 	  return dimg;
 	}
 	
+	protected static double colorDistance(int r1, int g1, int b1, int r2, int g2, int b2) {
+	    double[] lab1 = RGBtoCIELAB(r1, g1, b1);
+	    double[] lab2 = RGBtoCIELAB(r2, g2, b2);
+	    double dL = lab1[0] - lab2[0];
+	    double da = lab1[1] - lab2[1];
+	    double db = lab1[2] - lab2[2];
+	    return Math.sqrt(dL * dL + da * da + db * db);
+	}
+	
+	
+	protected static double[] RGBtoCIELAB(int r, int g, int b) {
+	    // Convert the RGB values to XYZ using the CIE RGB to XYZ conversion matrix
+	    double[] XYZ = {
+	        0.4124 * r + 0.3576 * g + 0.1805 * b,
+	        0.2126 * r + 0.7152 * g + 0.0722 * b,
+	        0.0193 * r + 0.1192 * g + 0.9505 * b
+	    };
+
+	    // Normalize the XYZ values using the white point of the sRGB color space
+	    double Xn = 95.047;
+	    double Yn = 100.000;
+	    double Zn = 108.883;
+	    double X = XYZ[0] / Xn;
+	    double Y = XYZ[1] / Yn;
+	    double Z = XYZ[2] / Zn;
+
+	    // Convert the XYZ values to CIELAB
+	    double fX, fY, fZ;
+	    if (X > 0.008856) {
+	        fX = Math.pow(X, 1.0 / 3.0);
+	    } else {
+	        fX = (7.787 * X) + (16.0 / 116.0);
+	    }
+	    if (Y > 0.008856) {
+	        fY = Math.pow(Y, 1.0 / 3.0);
+	    } else {
+	        fY = (7.787 * Y) + (16.0 / 116.0);
+	    }
+	    if (Z > 0.008856) {
+	        fZ = Math.pow(Z, 1.0 / 3.0);
+	    } else {
+	        fZ = (7.787 * Z) + (16.0 / 116.0);
+	    }
+	    double L = (116.0 * fY) - 16.0;
+	    double a = 500.0 * (fX - fY);
+	    double bl = 200.0 * (fY - fZ);
+
+	    return new double[]{L, a, bl};
+	}
+	
 	public Image pixelate(Image input) {
 		int minDim = Math.min(input.getWidth(null), input.getHeight(null));
 		int oldWidth = input.getWidth(null);
@@ -109,10 +146,12 @@ public class Pixelation {
                     continue;
                 }
                 for(Color color : palette) {
-                	double distance = 
+                	/*double distance = 
                 			Math.abs(red-color.getRed())
                 			+ Math.abs(green-color.getGreen())
-                			+ Math.abs(blue-color.getBlue());
+                			+ Math.abs(blue-color.getBlue());*/
+                	double distance = colorDistance(red, green, blue, color.getRed(), color.getGreen(), color.getBlue())
+                			+ Math.abs(color.getAlpha()-alpha);
                 	if(distance<minDistance) {
                 		bestColor = color;
                 		minDistance = distance;
