@@ -28,6 +28,10 @@ public class Texture {
 		return new_image;
 	}
 	
+	public Texture(Image image) {
+		this.image = image;
+	}
+	
 	public Texture(String path) {
 		try {
 			/*if(new File(path).exists())
