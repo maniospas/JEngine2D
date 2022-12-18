@@ -11,6 +11,17 @@ public class Pixelation {
 	private HashMap<Texture, Texture> pixelated = new HashMap<Texture, Texture>();
 	private ArrayList<Color> palette = new ArrayList<Color>();
 	private int scale = 64;
+	
+	public Pixelation setScale(int scale) {
+		this.scale = scale;
+		pixelated.clear();
+		return this;
+	}
+	
+	public ArrayList<Color> getPalette() {
+		return palette;
+	}
+	
 	public Pixelation() {
 		/*int[] levels = {64, 128, 255};
 		for(int level: levels) {
@@ -66,11 +77,11 @@ public class Pixelation {
 	public Texture pixelate(Texture texture) {
 		Texture ret = pixelated.get(texture);
 		if(ret==null)
-			pixelated.put(texture, ret = new Texture(texture.getImage()));
+			pixelated.put(texture, ret = new Texture(this.pixelate(texture.getImage())));
 		return ret;
 	}
 	
-	public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+	public static BufferedImage resize(Image img, int newW, int newH) { 
 	  Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
 	  BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 	  Graphics2D g2d = dimg.createGraphics();
@@ -79,11 +90,11 @@ public class Pixelation {
 	  return dimg;
 	}
 	
-	public Image pixelate(BufferedImage image) {
-		int minDim = Math.min(image.getWidth(), image.getHeight());
-		int oldWidth = image.getWidth();
-		int oldHeight = image.getHeight();
-		image = resize(image, image.getWidth()*scale/minDim, image.getHeight()*scale/minDim);
+	public Image pixelate(Image input) {
+		int minDim = Math.min(input.getWidth(null), input.getHeight(null));
+		int oldWidth = input.getWidth(null);
+		int oldHeight = input.getHeight(null);
+		BufferedImage image = resize(input, input.getWidth(null)*scale/minDim, input.getHeight(null)*scale/minDim);
 		for(int i=0;i<image.getWidth();i++)
 			for(int j=0;j<image.getHeight();j++) {
 				int RGBA = image.getRGB(i, j);
