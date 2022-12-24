@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import engine.textures.Texture;
+import engine.textures.TextureLoader;
 
 
 public class Button extends UIEntity {
@@ -189,8 +190,16 @@ public class Button extends UIEntity {
 						word = "";
 					}
 					else if(c==' ') {
-						g.drawString(word, lineX, py);
-						lineX += g.getFontMetrics().stringWidth(word+" ");
+						if(word.startsWith("{") && word.endsWith("}")) {
+							Texture texture = TextureLoader.get(word.substring(1, word.length()-1));
+							int lineHeight = g.getFontMetrics().getHeight();
+							texture.draw(g, lineX, py, lineHeight, lineHeight);
+							lineX += lineHeight;
+						}
+						else {
+							g.drawString(word, lineX, py);
+							lineX += g.getFontMetrics().stringWidth(word+" ");
+						}
 						word = "";
 					}
 					else

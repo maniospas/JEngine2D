@@ -47,7 +47,7 @@ public class Animation {
 		}
 		return this;
 	}
-
+	
 	public void draw(Graphics g, int x, int y, int dx, int dy, int direction) {
 		if(image==null || finished)
 			return;
