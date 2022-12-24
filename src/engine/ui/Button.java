@@ -192,8 +192,8 @@ public class Button extends UIEntity {
 					else if(c==' ') {
 						if(word.startsWith("{") && word.endsWith("}")) {
 							Texture texture = TextureLoader.get(word.substring(1, word.length()-1));
-							int lineHeight = g.getFontMetrics().getHeight();
-							texture.draw(g, lineX, py, lineHeight, lineHeight);
+							int lineHeight = g.getFontMetrics().getHeight()*4/5;
+							texture.draw(g, lineX, py-lineHeight, lineHeight, lineHeight);
 							lineX += lineHeight;
 						}
 						else {
@@ -205,8 +205,15 @@ public class Button extends UIEntity {
 					else
 						word += c;
 				}
-				if(!word.isEmpty())
-					g.drawString(word, lineX, py);
+				if(!word.isEmpty()) {
+					if(word.startsWith("{") && word.endsWith("}")) {
+						Texture texture = TextureLoader.get(word.substring(1, word.length()-1));
+						int lineHeight = g.getFontMetrics().getHeight()*4/5;
+						texture.draw(g, lineX, py-lineHeight, lineHeight, lineHeight);
+					}
+					else
+						g.drawString(word, lineX, py);
+				}
 				if(word.endsWith(".") || normalFont==titleFont)
 					py += 10;
 				if(line.isEmpty())
