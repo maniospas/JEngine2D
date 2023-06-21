@@ -11,6 +11,10 @@ public class Animation {
 	protected int gridWidth;
 	protected int gridHeight;
 	private boolean finished;
+	private double cropx1 = 0;
+	private double cropx2 = 0;
+	private double cropy1 = 0;
+	private double cropy2 = 0;
 	private Image image;
 	
 	public Animation(Texture texture, int gridWidth, int gridHeight, double speed) {
@@ -48,14 +52,25 @@ public class Animation {
 		return this;
 	}
 	
+	public Animation setCrop(double x1, double y1, double x2, double y2) {
+		cropx1 = x1;
+		cropx2 = x2;
+		cropy1 = y1;
+		cropy2 = y2;
+		return this;
+	}
+	
 	public void draw(Graphics g, int x, int y, int dx, int dy, int direction) {
 		if(image==null || finished)
 			return;
 		int width = image.getWidth(null);
 		int height = image.getHeight(null);
 		g.drawImage(image, x, y, x+dx, y+dy,
-					width*currentGridX/gridWidth, height*currentGridY/gridHeight, 
-					width*(currentGridX+1)/gridWidth, height*(currentGridY+1)/gridHeight, null);
+					width*currentGridX/gridWidth+(int)(width*cropx1/gridWidth), 
+					height*currentGridY/gridHeight+(int)(height*cropy1/gridHeight), 
+					width*(currentGridX+1)/gridWidth-(int)(width*cropx2/gridWidth), 
+					height*(currentGridY+1)/gridHeight-(int)(height*cropy2/gridHeight), 
+					null);
 	}
 
 	public final void draw(Graphics g, double x, double y, double dx, double dy) {
