@@ -12,7 +12,7 @@ public class FancyDraw {
 	private static Font tooltipFont = StyleManager.deriveFont(Font.PLAIN, 20);
 	private static Font smallFont = StyleManager.deriveFont(Font.PLAIN, 16);
 	
-	protected static void fancyDraw(Graphics g, String tooltip, 
+	public static void fancyDraw(Graphics g, String tooltip, 
 			int px, int py, int dx, boolean fromTop) {
 		int height = fancyDraw(g, tooltip, px, py, dx, 0);
 		if(!fromTop)
