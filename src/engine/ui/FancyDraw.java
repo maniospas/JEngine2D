@@ -124,6 +124,6 @@ public class FancyDraw {
 				py -= 10;
 			py += 23;
 		}
-		return py - startpy;
+		return py - startpy - 11;
 	}
 }
