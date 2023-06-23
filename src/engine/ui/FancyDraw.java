@@ -71,22 +71,26 @@ public class FancyDraw {
 					word += c;
 					if(word.equals("[white]"))
 						g.setColor(Color.white);
-					if(word.equals("[black]"))
+					else if(word.equals("[black]"))
 						g.setColor(Color.black);
-					if(word.equals("[red]"))
+					else if(word.equals("[red]"))
 						g.setColor(Color.red);
-					if(word.equals("[green]"))
+					else if(word.equals("[green]"))
 						g.setColor(Color.green);
-					if(word.equals("[yellow]"))
+					else if(word.equals("[yellow]"))
 						g.setColor(Color.yellow);
-					if(word.equals("[gray]"))
+					else if(word.equals("[gray]"))
 						g.setColor(Color.lightGray);
-					if(word.equals("[blue]"))
+					else if(word.equals("[blue]"))
 						g.setColor(Color.cyan);
-					if(word.equals("[small]")) 
+					else if(word.equals("[small]")) 
 						g.setFont(normalFont==tooltipFont?smallFont:tooltipFont);
-					if(word.equals("[normal]")) 
+					else if(word.equals("[normal]")) 
 						g.setFont(normalFont);
+					else {
+						word = word.substring(1, word.length()-1);
+						lineX = px + 5 + Integer.parseInt(word)*g.getFontMetrics().charWidth('x');
+					}
 					
 					word = "";
 				}
