@@ -68,6 +68,13 @@ public class Pixelation {
 		return ret;
 	}
 	
+	public Animation pixelate(Animation animation) {
+		return new Animation(pixelate(animation.getTexture()), 
+				animation.getGridWidth(), 
+				animation.getGridHeight(), 
+				animation.getSpeed()).setProgress(animation.getProgress());
+	}
+	
 	public static BufferedImage resize(Image img, int newW, int newH) { 
 	  Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
 	  BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);

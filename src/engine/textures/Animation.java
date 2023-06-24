@@ -15,10 +15,10 @@ public class Animation {
 	private double cropx2 = 0;
 	private double cropy1 = 0;
 	private double cropy2 = 0;
-	private Image image;
+	private Texture texture;
 	
 	public Animation(Texture texture, int gridWidth, int gridHeight, double speed) {
-		this.image = texture.image;
+		this.texture = texture;
 		this.gridWidth = gridWidth;
 		this.gridHeight = gridHeight;
 		this.speed = speed;
@@ -30,6 +30,31 @@ public class Animation {
 		currentGridX = 0;
 		currentGridY = 0;
 		finished = false;
+		return this;
+	}
+	
+	public Texture getTexture() {
+		return texture;
+	}
+	
+	public int getGridWidth() {
+		return gridWidth;
+	}
+	
+	public int getGridHeight() {
+		return gridHeight;
+	}
+	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	public double getProgress() {
+		return progress;
+	}
+	
+	public Animation setProgress(double progress) {
+		this.progress = progress;
 		return this;
 	}
 	
@@ -61,6 +86,7 @@ public class Animation {
 	}
 	
 	public void draw(Graphics g, int x, int y, int dx, int dy, int direction) {
+		Image image = texture.image;
 		if(image==null || finished)
 			return;
 		int width = image.getWidth(null);
