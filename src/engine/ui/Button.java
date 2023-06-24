@@ -25,6 +25,7 @@ public class Button extends UIEntity {
 	private boolean enabled = true;
 	private boolean visible = true;
 	private String tooltip = null;
+	private double tooltipWidth = 88;
 	
 	public Button setText(String text) {
 		this.text = text;
@@ -46,6 +47,11 @@ public class Button extends UIEntity {
 	
 	public Button setTooltip(String tooltip) {
 		this.tooltip = tooltip;
+		return this;
+	}
+	
+	public Button setTooltipWidth(double tooltipWidth) {
+		this.tooltipWidth = tooltipWidth;
 		return this;
 	}
 	
@@ -119,7 +125,7 @@ public class Button extends UIEntity {
 		if(isEntered && tooltip!=null) {
 			int x = (int)this.x-(isEntered?enteredSizeIncrease:0);
 			int y = (int)this.y-(isEntered?enteredSizeIncrease:0);
-			int dx = 88;//this.dx+2*(isEntered?enteredSizeIncrease:0);
+			int dx = (int)(tooltipWidth+0.5);//this.dx+2*(isEntered?enteredSizeIncrease:0);
 			//int dy = 80;//this.dy+2*(isEntered?enteredSizeIncrease:0);
 			int px = x+(int)this.dx/2-dx*3/2+20;
 			int py = y-10;
