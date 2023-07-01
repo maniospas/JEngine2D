@@ -87,11 +87,4 @@ public class State extends JPanel {
 		return this;
 	}
 
-	public void setParent(Game parent) {
-		this.parent = parent;
-	}
-	
-	public Game getParent() {
-		return parent;
-	}
 }

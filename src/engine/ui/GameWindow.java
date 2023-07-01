@@ -7,22 +7,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.JWindow;
 
-public class Game extends JFrame {
-	private static final long serialVersionUID = -9098598635649971171L;
+public class GameWindow extends JWindow {
+	private static final long serialVersionUID = -8413190977126381283L;
 	private int refreshDelay = 15;
 	private State state;
 	private Thread refresh;
 	private Inputs inputs = new Inputs();
 	private boolean working = false;
 
-	public Game() {
-		setExtendedState(MAXIMIZED_BOTH);
-		setUndecorated(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public GameWindow() {
 		JPanel panel = new JPanel() {
 			private static final long serialVersionUID = -6603228155180321599L;
 			@Override
