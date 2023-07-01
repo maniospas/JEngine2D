@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 public class State extends JPanel {
 	private static final long serialVersionUID = 2543001409713254719L;
 	private ArrayList<UIEntity> entities = new ArrayList<UIEntity>();
-	private Game parent;
 	private Layout layout;
 	
 	public State setLayout(Layout layout) {

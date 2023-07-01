@@ -11,10 +11,16 @@ public class Pixelation {
 	private HashMap<Texture, Texture> pixelated = new HashMap<Texture, Texture>();
 	private ArrayList<Color> palette = new ArrayList<Color>();
 	private int scale = 64;
+	private double alphaThreshold = 0.5;
 	
 	public Pixelation setScale(int scale) {
 		this.scale = scale;
 		pixelated.clear();
+		return this;
+	}
+	
+	public Pixelation setAlphaThreshold(double alphaThreshold) {
+		this.alphaThreshold = alphaThreshold;
 		return this;
 	}
 	
@@ -148,7 +154,7 @@ public class Pixelation {
                 int blue = RGBA & 255;
                 Color bestColor = null;
                 double minDistance = Double.POSITIVE_INFINITY;
-                if(alpha<0.5) {
+                if(alpha<alphaThreshold) {
                     image.setRGB(i, j, new Color(0, 0, 0, 0).getRGB());
                     continue;
                 }
