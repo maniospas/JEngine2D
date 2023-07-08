@@ -45,6 +45,22 @@ public class Animation {
 		return this;
 	}
 	
+	public int getGridStartX() {
+		return gridStartX;
+	}
+
+	public int getGridStartY() {
+		return gridStartY;
+	}
+
+	public int getTotalImageGridX() {
+		return totalImageGridX;
+	}
+
+	public int getTotalImageGridY() {
+		return totalImageGridY;
+	}
+	
 	public Animation restart() {
 		progress = 0;
 		currentGridX = 0;

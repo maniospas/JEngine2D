@@ -78,7 +78,11 @@ public class Pixelation {
 		return new Animation(pixelate(animation.getTexture()), 
 				animation.getGridWidth(), 
 				animation.getGridHeight(), 
-				animation.getSpeed()).setProgress(animation.getProgress());
+				animation.getSpeed())
+				.setGridBounds(
+						animation.getGridStartX(), animation.getGridStartY(), 
+						animation.getTotalImageGridX(), animation.getTotalImageGridY())
+				.setProgress(animation.getProgress());
 	}
 	
 	public static BufferedImage resize(Image img, int newW, int newH) { 
