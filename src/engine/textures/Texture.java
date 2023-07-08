@@ -21,7 +21,7 @@ public class Texture {
 		BufferedImage new_image = gfx_config.createCompatibleImage(image.getWidth(null), image.getHeight(null), Transparency.TRANSLUCENT);
 		Graphics2D g2d = (Graphics2D) new_image.getGraphics();
 		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g2d.drawImage(image, 0, 0, null);
 		g2d.dispose();

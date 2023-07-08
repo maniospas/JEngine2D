@@ -15,14 +15,34 @@ public class Animation {
 	private double cropx2 = 0;
 	private double cropy1 = 0;
 	private double cropy2 = 0;
+	private int gridStartX = 0;
+	private int gridStartY = 0;
+	private int totalImageGridX;
+	private int totalImageGridY;
 	private Texture texture;
+	private boolean isInfinite;
 	
 	public Animation(Texture texture, int gridWidth, int gridHeight, double speed) {
 		this.texture = texture;
 		this.gridWidth = gridWidth;
 		this.gridHeight = gridHeight;
+		this.totalImageGridX = gridWidth;
+		this.totalImageGridY = gridHeight;
 		this.speed = speed;
 		restart();
+	}
+	
+	public Animation setInfinite(boolean isInfinite) {
+		this.isInfinite = isInfinite;
+		return this;
+	}
+	
+	public Animation setGridBounds(int gridStartX, int gridStartY, int totalImageGridX, int totalImageGridY) {
+		this.gridStartX = gridStartX;
+		this.gridStartY = gridStartY;
+		this.totalImageGridX = totalImageGridX;
+		this.totalImageGridY = totalImageGridY;
+		return this;
 	}
 	
 	public Animation restart() {
@@ -71,7 +91,7 @@ public class Animation {
 			currentGridY += 1;
 		}
 		while(currentGridY>=gridHeight && currentGridY>0)  {
-			finished = true;
+			finished = !isInfinite;
 			currentGridY -= currentGridY;
 		}
 		return this;
@@ -92,10 +112,10 @@ public class Animation {
 		int width = image.getWidth(null);
 		int height = image.getHeight(null);
 		g.drawImage(image, x, y, x+dx, y+dy,
-					width*currentGridX/gridWidth+(int)(width*cropx1/gridWidth), 
-					height*currentGridY/gridHeight+(int)(height*cropy1/gridHeight), 
-					width*(currentGridX+1)/gridWidth-(int)(width*cropx2/gridWidth), 
-					height*(currentGridY+1)/gridHeight-(int)(height*cropy2/gridHeight), 
+					width*(gridStartX+currentGridX)/totalImageGridX+(int)(width*cropx1/totalImageGridX), 
+					height*(gridStartY+currentGridY)/totalImageGridY+(int)(height*cropy1/totalImageGridY), 
+					width*(gridStartX+currentGridX+1)/totalImageGridX-(int)(width*cropx2/totalImageGridX), 
+					height*(gridStartY+currentGridY+1)/totalImageGridY-(int)(height*cropy2/totalImageGridY), 
 					null);
 	}
 

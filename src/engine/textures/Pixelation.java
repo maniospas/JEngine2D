@@ -154,7 +154,7 @@ public class Pixelation {
                 int blue = RGBA & 255;
                 Color bestColor = null;
                 double minDistance = Double.POSITIVE_INFINITY;
-                if(alpha<alphaThreshold) {
+                if(alpha<alphaThreshold*255) {
                     image.setRGB(i, j, new Color(0, 0, 0, 0).getRGB());
                     continue;
                 }
