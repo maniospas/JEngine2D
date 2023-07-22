@@ -27,6 +27,10 @@ public class Button extends UIEntity {
 	private String tooltip = null;
 	private double tooltipWidth = 88;
 	
+	public boolean isEntered() {
+		return isEntered;
+	}
+	
 	public Button setText(String text) {
 		this.text = text;
 		return this;

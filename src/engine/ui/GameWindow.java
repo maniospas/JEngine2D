@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 
 public class GameWindow extends JWindow {
 	private static final long serialVersionUID = -8413190977126381283L;
@@ -31,20 +32,23 @@ public class GameWindow extends JWindow {
 			@Override
 			public void run() {
 				while(true) {
+					long prevTime = System.nanoTime()/1000000;
 					if(state!=null) {
 						if(!working) {
 							working = true;
 							state.process(refreshDelay/1000., inputs);
-							panel.repaint();
+							SwingUtilities.invokeLater(() -> { panel.repaint();});
 							working = false;
 						}
 					}
-					try {
-						Thread.sleep(refreshDelay);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					long time = System.nanoTime()/1000000;
+					if(time<prevTime+refreshDelay)
+						try {
+							Thread.sleep(prevTime+refreshDelay-time);
+						}
+						catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 				}
 			}
 		};

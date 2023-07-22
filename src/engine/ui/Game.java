@@ -35,20 +35,23 @@ public class Game extends JFrame {
 			@Override
 			public void run() {
 				while(true) {
+					long prevTime = System.nanoTime()/1000000;
 					if(state!=null) {
 						if(!working) {
 							working = true;
 							state.process(refreshDelay/1000., inputs);
-							panel.repaint();
+							SwingUtilities.invokeLater(() -> { panel.repaint();});
 							working = false;
 						}
 					}
-					try {
-						Thread.sleep(refreshDelay);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					long time = System.nanoTime()/1000000;
+					if(time<prevTime+refreshDelay)
+						try {
+							Thread.sleep(prevTime+refreshDelay-time);
+						}
+						catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 				}
 			}
 		};
