@@ -37,8 +37,8 @@ public class Group extends UIEntity {
 			entity.setX(prevX+getX());
 			entity.setY(prevY+getY());
 			entity.process(dt, inputs);
-			entity.setX(prevX);
-			entity.setY(prevY);
+			entity.setX(entity.getX()-getX());
+			entity.setY(entity.getY()-getY());
 		}
 	}
 
