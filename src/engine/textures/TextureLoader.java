@@ -11,4 +11,8 @@ public class TextureLoader {
 			textures.put(path, texture = new Texture(path));
 		return texture;
 	}
+	
+	public static HashMap<String, Texture> allTextures() {
+		return textures;
+	}
 }
